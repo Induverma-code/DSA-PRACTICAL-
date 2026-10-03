@@ -1,0 +1,255 @@
+#include <stdio.h>
+
+#define SIZE 5
+
+int stack[SIZE];
+int top = -1;
+
+// PUSH operation
+void push(int value)
+{
+    if (top == SIZE - 1)
+    {
+        printf("Stack Overflow!\n");
+    }
+    else
+    {
+        top++;
+        stack[top] = value;
+        printf("%d pushed into stack.\n", value);
+    }
+}
+
+// POP operation
+void pop()
+{
+    if (top == -1)
+    {
+        printf("Stack Underflow!\n");
+    }
+    else
+    {
+        printf("%d popped from stack.\n", stack[top]);
+        top--;
+    }
+}
+
+// PEEK operation
+void peek()
+{
+    if (top == -1)
+    {
+        printf("Stack is empty.\n");
+    }
+    else
+    {
+        printf("Top element is: %d\n", stack[top]);
+    }
+}
+
+// DISPLAY operation
+void display()
+{
+    if (top == -1)
+    {
+        printf("Stack is empty.\n");
+    }
+    else
+    {
+        printf("Stack elements are:\n");
+
+        for (int i = top; i >= 0; i--)
+        {
+            printf("%d\n", stack[i]);
+        }
+    }
+}
+
+int main()
+{
+    int choice, value;
+
+    while (1)
+    {
+        printf("\n--- STACK MENU ---\n");
+        printf("1. PUSH\n");
+        printf("2. POP\n");
+        printf("3. PEEK\n");
+        printf("4. DISPLAY\n");
+        printf("5. EXIT\n");
+
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                push(value);
+                break;
+
+            case 2:
+                pop();
+                break;
+
+            case 3:
+                peek();
+                break;
+
+            case 4:
+                display();
+                break;
+
+            case 5:
+                return 0;
+
+            default:
+                printf("Invalid choice!\n");
+        }
+    }
+
+    return 0;
+}
+
+#include <stdio.h>
+
+#define SIZE 5
+
+int queue[SIZE];
+
+int front = -1;
+int rear = -1;
+
+// ENQUEUE operation
+void enqueue(int value)
+{
+    // Check if queue is full
+    if ((rear + 1) % SIZE == front)
+    {
+        printf("Queue is Full!\n");
+        return;
+    }
+
+    // First element
+    if (front == -1)
+    {
+        front = 0;
+    }
+
+    rear = (rear + 1) % SIZE;
+    queue[rear] = value;
+
+    printf("%d inserted into queue.\n", value);
+}
+
+// DEQUEUE operation
+void dequeue()
+{
+    if (front == -1)
+    {
+        printf("Queue is Empty!\n");
+        return;
+    }
+
+    printf("%d deleted from queue.\n", queue[front]);
+
+    // If only one element was present
+    if (front == rear)
+    {
+        front = -1;
+        rear = -1;
+    }
+    else
+    {
+        front = (front + 1) % SIZE;
+    }
+}
+
+// FRONT operation
+void frontElement()
+{
+    if (front == -1)
+    {
+        printf("Queue is Empty!\n");
+    }
+    else
+    {
+        printf("Front element is: %d\n", queue[front]);
+    }
+}
+
+// DISPLAY operation
+void display()
+{
+    if (front == -1)
+    {
+        printf("Queue is Empty!\n");
+        return;
+    }
+
+    printf("Queue elements are: ");
+
+    int i = front;
+
+    while (1)
+    {
+        printf("%d ", queue[i]);
+
+        if (i == rear)
+        {
+            break;
+        }
+
+        i = (i + 1) % SIZE;
+    }
+
+    printf("\n");
+}
+
+int main()
+{
+    int choice, value;
+
+    while (1)
+    {
+        printf("\n--- CIRCULAR QUEUE MENU ---\n");
+        printf("1. ENQUEUE\n");
+        printf("2. DEQUEUE\n");
+        printf("3. FRONT\n");
+        printf("4. DISPLAY\n");
+        printf("5. EXIT\n");
+
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                enqueue(value);
+                break;
+
+            case 2:
+                dequeue();
+                break;
+
+            case 3:
+                frontElement();
+                break;
+
+            case 4:
+                display();
+                break;
+
+            case 5:
+                return 0;
+
+            default:
+                printf("Invalid choice!\n");
+        }
+    }
+
+    return 0;
+}
